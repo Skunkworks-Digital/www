@@ -31,6 +31,15 @@
     <meta name="twitter:title" content="Skunkworks Digital - Digital Transformation Experts">
     <meta name="twitter:description" content="Empowering businesses to scale digitally with comprehensive digital solutions and strategies.">
     <meta name="twitter:image" content="https://skunkworksdigital.com/images/twitter-image.jpg">
+
+
+    <!-- Favicon -->
+    <link rel="icon" href="Alogo1.png" type="image/x-icon">
+    <!-- Optional PNG fallback -->
+    <link rel="icon" href="Alogo1.png" type="image/png">
+    <!-- Optional SVG for modern browsers -->
+    <link rel="icon" href="Alogo1.jpeg" type="image/svg+xml">
+
     <style>
         :root {
             /* Carbon Design System colors */
@@ -1739,6 +1748,190 @@
         }
     </style>
 </head>
+<script>
+ document.addEventListener('DOMContentLoaded', function () {
+    // ===== Show Success Notification if ?sent=1 in URL =====
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('sent') === '1') {
+        const notification = document.getElementById('form-notification');
+        if (notification) {
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+    }
+
+    // ===== Loading Overlay =====
+    setTimeout(() => {
+        const overlay = document.querySelector('.loading-overlay');
+        if (overlay) overlay.classList.add('loaded');
+    }, 800);
+
+    // ===== Mobile Menu Toggle =====
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileNavClose = document.querySelector('.mobile-nav-close');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', () => mobileNav.classList.add('active'));
+    }
+    if (mobileNavClose) {
+        mobileNavClose.addEventListener('click', () => mobileNav.classList.remove('active'));
+    }
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => mobileNav.classList.remove('active'));
+    });
+
+    // ===== Accordion =====
+    document.querySelectorAll('.accordion-item').forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        if (header) {
+            header.addEventListener('click', () => item.classList.toggle('active'));
+        }
+    });
+
+    // ===== Back to Top Button =====
+    const backToTopButton = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('visible');
+        } else {
+            backToTopButton.classList.remove('visible');
+        }
+    });
+
+    // ===== Smooth Anchor Scroll =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // ===== Theme Toggle =====
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (themeToggle) {
+        const themeIcon = themeToggle.querySelector('i');
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', newTheme);
+            themeIcon.classList.toggle('fa-moon');
+            themeIcon.classList.toggle('fa-sun');
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Apply saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.body.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'dark') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        }
+    }
+
+    // ===== Modal Triggers =====
+    document.querySelectorAll('.service-modal-trigger').forEach(trigger => {
+        trigger.addEventListener('click', function () {
+            const modalId = this.getAttribute('data-modal');
+            const modal = document.getElementById(modalId);
+            if (modal) modal.classList.add('active');
+        });
+    });
+
+    // ===== Modal Close Buttons =====
+    document.querySelectorAll('.modal-close').forEach(button => {
+        button.addEventListener('click', function () {
+            const modal = this.closest('.modal');
+            if (modal) modal.classList.remove('active');
+        });
+    });
+
+    // ===== Close Modal on Outside Click =====
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) modal.classList.remove('active');
+        });
+    });
+
+    // ===== Notification Close Button =====
+    document.querySelectorAll('.notification-close').forEach(button => {
+        button.addEventListener('click', function () {
+            const notification = this.closest('.notification');
+            if (notification) notification.classList.remove('show');
+        });
+    });
+
+    // ===== Cookie Consent =====
+    const cookieConsent = document.getElementById('cookie-consent');
+    const cookieAccept = document.getElementById('cookie-accept');
+    if (cookieConsent && cookieAccept) {
+        if (!localStorage.getItem('cookies-accepted')) {
+            cookieConsent.style.display = 'flex';
+        }
+        cookieAccept.addEventListener('click', () => {
+            localStorage.setItem('cookies-accepted', 'true');
+            cookieConsent.style.display = 'none';
+        });
+    }
+
+    // ===== Counter Animation =====
+    document.querySelectorAll('.counter').forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-count'), 10);
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+
+        function updateCounter() {
+            current += step;
+            if (current < target) {
+                counter.textContent = Math.floor(current);
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.textContent = target;
+            }
+        }
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    updateCounter();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        observer.observe(counter);
+    });
+
+    // ===== Mobile Layout Adjustment =====
+    function adjustForMobile() {
+        const isMobile = window.innerWidth < 672;
+        document.querySelectorAll('.action-buttons').forEach(button => {
+            button.style.flexDirection = isMobile ? 'column' : 'row';
+        });
+        document.querySelectorAll('.bx--btn--tertiary').forEach(button => {
+            button.style.marginLeft = isMobile ? '0' : '1.5rem';
+            button.style.marginTop = isMobile ? '1rem' : '0';
+        });
+    }
+    adjustForMobile();
+    window.addEventListener('resize', adjustForMobile);
+  });
+</script>
+
 <body id="top">
     <!-- Skip Link for Accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -2499,8 +2692,193 @@
             </div>
         </section>
 
+        
+
+         <!-- Services Section with Enhanced Cards -->
+         <section id="services" class="bx--grid">
+            <div class="bx--row">
+                <div class="bx--col-lg-12">
+                    <div class="bx--tile">
+                        <h2>
+                            <svg class="section-icon" width="24" height="24" viewBox="0 0 32 32" fill="currentColor">
+                                <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"></path>
+                                <path d="M16,10a6,6,0,1,0,6,6A6,6,0,0,0,16,10Zm0,10a4,4,0,1,1,4-4A4,4,0,0,1,16,20Z"></path>
+                            </svg>
+                            Our Comprehensive Services
+                        </h2>
+                        <p class="section-description">Discover our full range of digital solutions designed to help your business thrive in the digital landscape. Each service is customizable to meet your specific needs and goals.</p>
+                        
+                        <div class="services-grid">
+                            <div class="service-card">
+                                <div class="service-card-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div class="service-card-content">
+                                    <h3 class="service-card-title">SEO & Content Marketing</h3>
+                                    <p class="service-card-description">Data-driven strategies to improve search rankings, increase organic traffic, and establish industry authority.</p>
+                                    <button class="bx--btn bx--btn--tertiary service-modal-trigger" data-modal="seo-modal">Learn More</button>
+                                </div>
+                            </div>
+                            
+                            <div class="service-card">
+                                <div class="service-card-icon">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="service-card-content">
+                                    <h3 class="service-card-title">CRM & Business Automation</h3>
+                                    <p class="service-card-description">Streamline operations and improve customer relationships with custom CRM solutions and workflow automation.</p>
+                                    <button class="bx--btn bx--btn--tertiary service-modal-trigger" data-modal="crm-modal">Learn More</button>
+                                </div>
+                            </div>
+                            
+                            <div class="service-card">
+                                <div class="service-card-icon">
+                                    <i class="fas fa-hashtag"></i>
+                                </div>
+                                <div class="service-card-content">
+                                    <h3 class="service-card-title">Social Media Marketing</h3>
+                                    <p class="service-card-description">Strategic social media campaigns to build brand awareness, engage your audience, and drive conversions.</p>
+                                    <button class="bx--btn bx--btn--tertiary service-modal-trigger" data-modal="social-modal">Learn More</button>
+                                </div>
+                            </div>
+                            
+                            <div class="service-card">
+                                <div class="service-card-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="service-card-content">
+                                    <h3 class="service-card-title">Email Marketing</h3>
+                                    <p class="service-card-description">Personalized email campaigns that nurture leads, re-engage customers, and drive repeat business.</p>
+                                    <button class="bx--btn bx--btn--tertiary service-modal-trigger" data-modal="email-modal">Learn More</button>
+                                </div>
+                                    <!-- <p class="service-card-description">Custom online stores with seamless checkout experiences, secure payment integration, and inventory management.</p>
+                                    <button class="bx--btn bx--btn--tertiary service-modal-trigger" data-modal="ecommerce-modal">Learn More</button>
+                                </div> -->
+                            </div>
+                            
+                            <div class="service-card">
+                                <div class="service-card-icon">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                                <div class="service-card-content">
+                                    <h3 class="service-card-title">Website Design & Development</h3>
+                                    <p class="service-card-description">Responsive, performance-optimized websites that provide exceptional user experiences across all devices.</p>
+                                    <button class="bx--btn bx--btn--tertiary service-modal-trigger" data-modal="website-modal">Learn More</button>
+                                </div>
+                            </div>
+                            
+                            <div class="service-card">
+                                <div class="service-card-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <div class="service-card-content">
+                                    <h3 class="service-card-title">SEO & Content Marketing</h3>
+                                    <p class="service-card-description">Data-driven strategies to improve search rankings, increase organic traffic, and establish industry authority.</p>
+                                    <button class="bx--btn bx--btn--tertiary service-modal-trigger" data-modal="seo-modal">Learn More</button>
+                                </div>
+                            </div>
+                            
+                            <!-- <div class="service-card"> -->
+                                <!-- <div class="service-card-icon">
+                                    <i class="fas fa-users"></i>
+                                </div> -->
+                                <!-- <div class="service-card-content">
+                                    <h3 class="service-card- -->
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <!-- Company Profile Section -->
+        <section id="about" class="bx--grid">
+            <div class="bx--row">
+                <div class="bx--col-lg-12">
+                    <div class="bx--tile animate__animated animate__fadeIn">
+                        <h2>
+                            <svg class="section-icon" width="24" height="24" viewBox="0 0 32 32" fill="currentColor">
+                                <path d="M16,4c-6.6,0-12,5.4-12,12s5.4,12,12,12s12-5.4,12-12S22.6,4,16,4z M16,26c-5.5,0-10-4.5-10-10S10.5,6,16,6 s10,4.5,10,10S21.5,26,16,26z"></path>
+                                <path d="M16,10c-3.3,0-6,2.7-6,6s2.7,6,6,6s6-2.7,6-6S19.3,10,16,10z M16,20c-2.2,0-4-1.8-4-4s1.8-4,4-4s4,1.8,4,4 S18.2,20,16,20z"></path>
+                            </svg>
+                            Company Profile
+                        </h2>
+                        <p class="section-description">Founded in 2020, Skunkworks Digital has rapidly established itself as a premier digital solutions provider. We specialize in creating comprehensive online services that help businesses of all sizes establish, expand, and optimize their digital presence in an increasingly competitive marketplace.</p>
+                        
+                        <p>At Skunkworks Digital, we believe that every business deserves access to cutting-edge digital tools and strategies regardless of their size or industry. Our team of experts combines deep technical knowledge with business acumen to deliver solutions that not only look great but drive measurable results.</p>
+                        
+                        <p>What sets us apart is our commitment to understanding your unique business challenges and goals. We don't offer one-size-fits-all solutions – instead, we take the time to learn about your business, your customers, and your market before crafting a tailored digital strategy that positions you for success.</p>
+                        
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <div class="accordion-title">Our Core Services</div>
+                                    <div class="accordion-icon"><i class="fas fa-chevron-down"></i></div>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="service-item">
+                                        <div class="icon">
+                                            <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
+                                                <path d="M28,10H22V4h6V10z M22,12h6v6h-6V12z M22,26v-6h6v6H22z M12,4h8v8h-8V4z M20,14v8h-8v-8H20z M10,28V14H4v14H10z M4,12V4h6v8H4z M12,14h8v14h-8V14z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="content">
+                                            <div class="title">E-commerce Growth & Payment Integration</div>
+                                            <div class="description">Comprehensive e-commerce solutions including platform setup, product catalog management, and secure payment gateway integration across multiple currencies and payment methods. We help businesses expand their online sales channels and create seamless shopping experiences that convert browsers into buyers and first-time customers into loyal advocates.</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="service-item">
+                                        <div class="icon">
+                                            <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
+                                                <path d="M30,16l-4,4h-4v4h-4l-4,4H6V16h4l4-4h8v4H30z M23.15,14H17V7.85L14.15,5H2v18h6v2H0V3h15l5,5V14z M19,3h8v5h-8V3z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="content">
+                                            <div class="title">Web Development & Hosting</div>
+                                            <div class="description">Custom website design and development with responsive layouts, performance optimization, and reliable hosting solutions with 99.9% uptime guarantee and 24/7 monitoring. Our development practices focus on creating fast-loading, secure, and search-engine-friendly sites that look amazing on all devices and provide intuitive user experiences.</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="service-item">
+                                        <div class="icon">
+                                            <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
+                                                <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"></path>
+                                                <circle cx="16" cy="23.5" r="1.5"></circle>
+                                                <path d="M17,8H15v12h2Z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="content">
+                                            <div class="title">SEO, Social Media & Email Marketing</div>
+                                            <div class="description">Data-driven marketing strategies including search engine optimization, targeted social media campaigns, and personalized email marketing to increase traffic, engagement, and conversion rates. We develop comprehensive content strategies that establish your brand as an industry authority while driving qualified leads to your business.</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="service-item">
+                                        <div class="icon">
+                                            <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
+                                                <path d="M28,6H4A2,2,0,0,0,2,8V24a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V8A2,2,0,0,0,28,6ZM4,8H28v4H4ZM4,24V14H28V24Z"></path>
+                                                <rect x="6" y="16" width="10" height="2"></rect>
+                                                <rect x="6" y="20" width="6" height="2"></rect>
+                                            </svg>
+                                        </div>
+                                        <div class="content">
+                                            <div class="title">CRM Setup & Business Process Automation</div>
+                                            <div class="description">Implementation and customization of customer relationship management systems and workflow automation to streamline operations, reduce manual tasks, and improve customer experiences. Our automation solutions help businesses reclaim valuable time, reduce operational costs, and create more consistent customer touchpoints across all channels.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-highlight">
+                            <div class="stat-number">250+</div>
+                            <div class="stat-description">Successful client projects delivered across 12 industries since our founding, with a client retention rate of 92%.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- Case Studies Section -->
-        <section id="case-studies" class="bx--grid case-studies-section">
+         <section id="case-studies" class="bx--grid case-studies-section">
             <div class="bx--row">
                 <div class="bx--col-lg-12">
                     <div class="bx--tile">
@@ -2588,7 +2966,6 @@
                 </div>
             </div>
         </section>
-
         <!-- Testimonials Section -->
         <section id="testimonials" class="bx--grid testimonials-section">
             <div class="bx--row">
@@ -2660,7 +3037,6 @@
                 </div>
             </div>
         </section>
-
         <!-- Team Section -->
         <section id="team" class="bx--grid team-section">
             <div class="bx--row">
@@ -2745,6 +3121,67 @@
             </div>
         </section>
 
+        <!-- Value Proposition Section -->
+        <section id="value-proposition" class="bx--grid">
+            <div class="bx--row">
+                <div class="bx--col-lg-12">
+                    <div class="bx--tile animate__animated animate__fadeIn">
+                        <h2>
+                            <svg class="section-icon" width="24" height="24" viewBox="0 0 32 32" fill="currentColor">
+                                <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"></path>
+                                <path d="M20.59,22,15,16.41V7h2v8.58l5,5.01L20.59,22z"></path>
+                            </svg>
+                            Our Value Proposition
+                        </h2>
+                        <p class="section-description">We provide end-to-end digital enablement, integrating AI-driven strategies and data analytics to enhance customer engagement and revenue growth. Our approach is built on three core principles that drive measurable business outcomes:</p>
+                        
+                        <div class="service-item">
+                            <div class="icon">
+                                <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
+                                    <path d="M25,14H17V6h8ZM15,4V16H27V4Z"></path>
+                                    <path d="M15,28H3V16H15ZM29,16V28H17V16Z"></path>
+                                </svg>
+                            </div>
+                            <div class="content">
+                                <div class="title">Tech-agnostic solutions</div>
+                                <div class="description">We work with all major platforms including Shopify, Wix, WordPress, and custom solutions, selecting the technology that best matches your business needs rather than forcing a one-size-fits-all approach. This ensures you get a solution that fits your specific requirements, budget, and future growth plans without being locked into a platform that may limit your potential.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-item">
+                            <div class="icon">
+                                <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
+                                    <path d="M29.707,19.293l-3-3a1,1,0,0,0-1.414,0L16,25.5859,10.707,20.293a1,1,0,0,0-1.414,0l-3,3a1,1,0,0,0,0,1.414l9,9a1,1,0,0,0,1.414,0l13-13A1,1,0,0,0,29.707,19.293Z"></path>
+                                    <path d="M30,15a1,1,0,0,1-.29.71L17,28.41l-6.29-6.3a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,0,1.42l10,10a1,1,0,0,0,1.42,0l15-15a1,1,0,0,0,0-1.42l-4-4a1,1,0,0,0-1.42,0L17,26.59l-2.29-2.3a1,1,0,0,0-1.42,1.42l3,3a1,1,0,0,0,1.42,0l12-12a1,1,0,0,0,0-1.42Z"></path>
+                                </svg>
+                            </div>
+                            <div class="content">
+                                <div class="title">Optimized for conversion & engagement</div>
+                                <div class="description">Every solution we design is built with conversion optimization at its core. We implement data-driven UX strategies, A/B testing, and customer journey mapping to maximize engagement and conversions. Our designs don't just look good – they're strategically crafted to guide visitors toward specific actions that support your business goals, whether that's making a purchase, signing up for a newsletter, or requesting more information.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-item">
+                            <div class="icon">
+                                <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
+                                    <path d="M17.7,30l-1.4-2.9L13.5,26l0.3-3.2L11,19.5l2-2.5l-1.2-3l2.5-2l-0.2-3.2l2.8-1.3L18.3,4l3,0l1.4,2.9l2.8,1.2L25.2,11l2.8,3.2l-2,2.5l1.2,3l-2.5,2l0.2,3.2l-2.8,1.3L20.7,30L17.7,30z M19.5,22.3l3.8-3.8l-1.6-1.6l-2.2,2.2l-1-1l2.2-2.2l-1.6-1.6l-3.8,3.8L19.5,22.3z"></path>
+                                    <path d="M11.9,20.5l-5.7,5.7l-2.9-2.9l5.7-5.7L7.4,16l8.2-2.7L12.9,21L11.9,20.5z"></path>
+                                </svg>
+                            </div>
+                            <div class="content">
+                                <div class="title">ROI-focused marketing campaigns</div>
+                                <div class="description">Our marketing strategies are built around measurable outcomes with clear KPIs. We track and optimize for the metrics that matter most to your business growth, ensuring every marketing dollar delivers maximum return. Instead of focusing solely on vanity metrics like impressions or likes, we prioritize metrics that directly impact your bottom line, such as qualified leads, conversion rates, customer acquisition costs, and lifetime customer value.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-highlight">
+                            <div class="stat-number">37%</div>
+                            <div class="stat-description">Average increase in conversion rates achieved for our clients within the first six months of implementing our optimized digital solutions.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- FAQ Section -->
         <section id="faq" class="bx--grid faq-section">
             <div class="bx--row">
@@ -2825,7 +3262,6 @@
                 </div>
             </div>
         </section>
-
         <!-- Next Steps/Contact Section -->
         <section id="contact" class="bx--grid">
             <div class="bx--row">
@@ -2941,254 +3377,6 @@
                 </div>
             </div>
         </section>
-
-
-        <!-- Company Profile Section -->
-        <section id="about" class="bx--grid">
-            <div class="bx--row">
-                <div class="bx--col-lg-12">
-                    <div class="bx--tile animate__animated animate__fadeIn">
-                        <h2>
-                            <svg class="section-icon" width="24" height="24" viewBox="0 0 32 32" fill="currentColor">
-                                <path d="M16,4c-6.6,0-12,5.4-12,12s5.4,12,12,12s12-5.4,12-12S22.6,4,16,4z M16,26c-5.5,0-10-4.5-10-10S10.5,6,16,6 s10,4.5,10,10S21.5,26,16,26z"></path>
-                                <path d="M16,10c-3.3,0-6,2.7-6,6s2.7,6,6,6s6-2.7,6-6S19.3,10,16,10z M16,20c-2.2,0-4-1.8-4-4s1.8-4,4-4s4,1.8,4,4 S18.2,20,16,20z"></path>
-                            </svg>
-                            Company Profile
-                        </h2>
-                        <p class="section-description">Founded in 2020, Skunkworks Digital has rapidly established itself as a premier digital solutions provider. We specialize in creating comprehensive online services that help businesses of all sizes establish, expand, and optimize their digital presence in an increasingly competitive marketplace.</p>
-                        
-                        <p>At Skunkworks Digital, we believe that every business deserves access to cutting-edge digital tools and strategies regardless of their size or industry. Our team of experts combines deep technical knowledge with business acumen to deliver solutions that not only look great but drive measurable results.</p>
-                        
-                        <p>What sets us apart is our commitment to understanding your unique business challenges and goals. We don't offer one-size-fits-all solutions – instead, we take the time to learn about your business, your customers, and your market before crafting a tailored digital strategy that positions you for success.</p>
-                        
-                        <div class="accordion">
-                            <div class="accordion-item">
-                                <div class="accordion-header">
-                                    <div class="accordion-title">Our Core Services</div>
-                                    <div class="accordion-icon"><i class="fas fa-chevron-down"></i></div>
-                                </div>
-                                <div class="accordion-content">
-                                    <div class="service-item">
-                                        <div class="icon">
-                                            <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
-                                                <path d="M28,10H22V4h6V10z M22,12h6v6h-6V12z M22,26v-6h6v6H22z M12,4h8v8h-8V4z M20,14v8h-8v-8H20z M10,28V14H4v14H10z M4,12V4h6v8H4z M12,14h8v14h-8V14z"></path>
-                                            </svg>
-                                        </div>
-                                        <div class="content">
-                                            <div class="title">E-commerce Growth & Payment Integration</div>
-                                            <div class="description">Comprehensive e-commerce solutions including platform setup, product catalog management, and secure payment gateway integration across multiple currencies and payment methods. We help businesses expand their online sales channels and create seamless shopping experiences that convert browsers into buyers and first-time customers into loyal advocates.</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="service-item">
-                                        <div class="icon">
-                                            <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
-                                                <path d="M30,16l-4,4h-4v4h-4l-4,4H6V16h4l4-4h8v4H30z M23.15,14H17V7.85L14.15,5H2v18h6v2H0V3h15l5,5V14z M19,3h8v5h-8V3z"></path>
-                                            </svg>
-                                        </div>
-                                        <div class="content">
-                                            <div class="title">Web Development & Hosting</div>
-                                            <div class="description">Custom website design and development with responsive layouts, performance optimization, and reliable hosting solutions with 99.9% uptime guarantee and 24/7 monitoring. Our development practices focus on creating fast-loading, secure, and search-engine-friendly sites that look amazing on all devices and provide intuitive user experiences.</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="service-item">
-                                        <div class="icon">
-                                            <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
-                                                <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"></path>
-                                                <circle cx="16" cy="23.5" r="1.5"></circle>
-                                                <path d="M17,8H15v12h2Z"></path>
-                                            </svg>
-                                        </div>
-                                        <div class="content">
-                                            <div class="title">SEO, Social Media & Email Marketing</div>
-                                            <div class="description">Data-driven marketing strategies including search engine optimization, targeted social media campaigns, and personalized email marketing to increase traffic, engagement, and conversion rates. We develop comprehensive content strategies that establish your brand as an industry authority while driving qualified leads to your business.</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="service-item">
-                                        <div class="icon">
-                                            <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
-                                                <path d="M28,6H4A2,2,0,0,0,2,8V24a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V8A2,2,0,0,0,28,6ZM4,8H28v4H4ZM4,24V14H28V24Z"></path>
-                                                <rect x="6" y="16" width="10" height="2"></rect>
-                                                <rect x="6" y="20" width="6" height="2"></rect>
-                                            </svg>
-                                        </div>
-                                        <div class="content">
-                                            <div class="title">CRM Setup & Business Process Automation</div>
-                                            <div class="description">Implementation and customization of customer relationship management systems and workflow automation to streamline operations, reduce manual tasks, and improve customer experiences. Our automation solutions help businesses reclaim valuable time, reduce operational costs, and create more consistent customer touchpoints across all channels.</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-highlight">
-                            <div class="stat-number">250+</div>
-                            <div class="stat-description">Successful client projects delivered across 12 industries since our founding, with a client retention rate of 92%.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Value Proposition Section -->
-        <section id="value-proposition" class="bx--grid">
-            <div class="bx--row">
-                <div class="bx--col-lg-12">
-                    <div class="bx--tile animate__animated animate__fadeIn">
-                        <h2>
-                            <svg class="section-icon" width="24" height="24" viewBox="0 0 32 32" fill="currentColor">
-                                <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"></path>
-                                <path d="M20.59,22,15,16.41V7h2v8.58l5,5.01L20.59,22z"></path>
-                            </svg>
-                            Our Value Proposition
-                        </h2>
-                        <p class="section-description">We provide end-to-end digital enablement, integrating AI-driven strategies and data analytics to enhance customer engagement and revenue growth. Our approach is built on three core principles that drive measurable business outcomes:</p>
-                        
-                        <div class="service-item">
-                            <div class="icon">
-                                <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
-                                    <path d="M25,14H17V6h8ZM15,4V16H27V4Z"></path>
-                                    <path d="M15,28H3V16H15ZM29,16V28H17V16Z"></path>
-                                </svg>
-                            </div>
-                            <div class="content">
-                                <div class="title">Tech-agnostic solutions</div>
-                                <div class="description">We work with all major platforms including Shopify, Wix, WordPress, and custom solutions, selecting the technology that best matches your business needs rather than forcing a one-size-fits-all approach. This ensures you get a solution that fits your specific requirements, budget, and future growth plans without being locked into a platform that may limit your potential.</div>
-                            </div>
-                        </div>
-                        
-                        <div class="service-item">
-                            <div class="icon">
-                                <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
-                                    <path d="M29.707,19.293l-3-3a1,1,0,0,0-1.414,0L16,25.5859,10.707,20.293a1,1,0,0,0-1.414,0l-3,3a1,1,0,0,0,0,1.414l9,9a1,1,0,0,0,1.414,0l13-13A1,1,0,0,0,29.707,19.293Z"></path>
-                                    <path d="M30,15a1,1,0,0,1-.29.71L17,28.41l-6.29-6.3a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,0,1.42l10,10a1,1,0,0,0,1.42,0l15-15a1,1,0,0,0,0-1.42l-4-4a1,1,0,0,0-1.42,0L17,26.59l-2.29-2.3a1,1,0,0,0-1.42,1.42l3,3a1,1,0,0,0,1.42,0l12-12a1,1,0,0,0,0-1.42Z"></path>
-                                </svg>
-                            </div>
-                            <div class="content">
-                                <div class="title">Optimized for conversion & engagement</div>
-                                <div class="description">Every solution we design is built with conversion optimization at its core. We implement data-driven UX strategies, A/B testing, and customer journey mapping to maximize engagement and conversions. Our designs don't just look good – they're strategically crafted to guide visitors toward specific actions that support your business goals, whether that's making a purchase, signing up for a newsletter, or requesting more information.</div>
-                            </div>
-                        </div>
-                        
-                        <div class="service-item">
-                            <div class="icon">
-                                <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
-                                    <path d="M17.7,30l-1.4-2.9L13.5,26l0.3-3.2L11,19.5l2-2.5l-1.2-3l2.5-2l-0.2-3.2l2.8-1.3L18.3,4l3,0l1.4,2.9l2.8,1.2L25.2,11l2.8,3.2l-2,2.5l1.2,3l-2.5,2l0.2,3.2l-2.8,1.3L20.7,30L17.7,30z M19.5,22.3l3.8-3.8l-1.6-1.6l-2.2,2.2l-1-1l2.2-2.2l-1.6-1.6l-3.8,3.8L19.5,22.3z"></path>
-                                    <path d="M11.9,20.5l-5.7,5.7l-2.9-2.9l5.7-5.7L7.4,16l8.2-2.7L12.9,21L11.9,20.5z"></path>
-                                </svg>
-                            </div>
-                            <div class="content">
-                                <div class="title">ROI-focused marketing campaigns</div>
-                                <div class="description">Our marketing strategies are built around measurable outcomes with clear KPIs. We track and optimize for the metrics that matter most to your business growth, ensuring every marketing dollar delivers maximum return. Instead of focusing solely on vanity metrics like impressions or likes, we prioritize metrics that directly impact your bottom line, such as qualified leads, conversion rates, customer acquisition costs, and lifetime customer value.</div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-highlight">
-                            <div class="stat-number">37%</div>
-                            <div class="stat-description">Average increase in conversion rates achieved for our clients within the first six months of implementing our optimized digital solutions.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section with Enhanced Cards -->
-        <section id="services" class="bx--grid">
-            <div class="bx--row">
-                <div class="bx--col-lg-12">
-                    <div class="bx--tile">
-                        <h2>
-                            <svg class="section-icon" width="24" height="24" viewBox="0 0 32 32" fill="currentColor">
-                                <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"></path>
-                                <path d="M16,10a6,6,0,1,0,6,6A6,6,0,0,0,16,10Zm0,10a4,4,0,1,1,4-4A4,4,0,0,1,16,20Z"></path>
-                            </svg>
-                            Our Comprehensive Services
-                        </h2>
-                        <p class="section-description">Discover our full range of digital solutions designed to help your business thrive in the digital landscape. Each service is customizable to meet your specific needs and goals.</p>
-                        
-                        <div class="services-grid">
-                            <div class="service-card">
-                                <div class="service-card-icon">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </div>
-                                <div class="service-card-content">
-                                    <h3 class="service-card-title">SEO & Content Marketing</h3>
-                                    <p class="service-card-description">Data-driven strategies to improve search rankings, increase organic traffic, and establish industry authority.</p>
-                                    <button class="bx--btn bx--btn--tertiary service-modal-trigger" data-modal="seo-modal">Learn More</button>
-                                </div>
-                            </div>
-                            
-                            <div class="service-card">
-                                <div class="service-card-icon">
-                                    <i class="fas fa-robot"></i>
-                                </div>
-                                <div class="service-card-content">
-                                    <h3 class="service-card-title">CRM & Business Automation</h3>
-                                    <p class="service-card-description">Streamline operations and improve customer relationships with custom CRM solutions and workflow automation.</p>
-                                    <button class="bx--btn bx--btn--tertiary service-modal-trigger" data-modal="crm-modal">Learn More</button>
-                                </div>
-                            </div>
-                            
-                            <div class="service-card">
-                                <div class="service-card-icon">
-                                    <i class="fas fa-hashtag"></i>
-                                </div>
-                                <div class="service-card-content">
-                                    <h3 class="service-card-title">Social Media Marketing</h3>
-                                    <p class="service-card-description">Strategic social media campaigns to build brand awareness, engage your audience, and drive conversions.</p>
-                                    <button class="bx--btn bx--btn--tertiary service-modal-trigger" data-modal="social-modal">Learn More</button>
-                                </div>
-                            </div>
-                            
-                            <div class="service-card">
-                                <div class="service-card-icon">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="service-card-content">
-                                    <h3 class="service-card-title">Email Marketing</h3>
-                                    <p class="service-card-description">Personalized email campaigns that nurture leads, re-engage customers, and drive repeat business.</p>
-                                    <button class="bx--btn bx--btn--tertiary service-modal-trigger" data-modal="email-modal">Learn More</button>
-                                </div>
-                                    <!-- <p class="service-card-description">Custom online stores with seamless checkout experiences, secure payment integration, and inventory management.</p>
-                                    <button class="bx--btn bx--btn--tertiary service-modal-trigger" data-modal="ecommerce-modal">Learn More</button>
-                                </div> -->
-                            </div>
-                            
-                            <div class="service-card">
-                                <div class="service-card-icon">
-                                    <i class="fas fa-laptop-code"></i>
-                                </div>
-                                <div class="service-card-content">
-                                    <h3 class="service-card-title">Website Design & Development</h3>
-                                    <p class="service-card-description">Responsive, performance-optimized websites that provide exceptional user experiences across all devices.</p>
-                                    <button class="bx--btn bx--btn--tertiary service-modal-trigger" data-modal="website-modal">Learn More</button>
-                                </div>
-                            </div>
-                            
-                            <div class="service-card">
-                                <div class="service-card-icon">
-                                    <i class="fas fa-search"></i>
-                                </div>
-                                <div class="service-card-content">
-                                    <h3 class="service-card-title">SEO & Content Marketing</h3>
-                                    <p class="service-card-description">Data-driven strategies to improve search rankings, increase organic traffic, and establish industry authority.</p>
-                                    <button class="bx--btn bx--btn--tertiary service-modal-trigger" data-modal="seo-modal">Learn More</button>
-                                </div>
-                            </div>
-                            
-                            <!-- <div class="service-card"> -->
-                                <!-- <div class="service-card-icon">
-                                    <i class="fas fa-users"></i>
-                                </div> -->
-                                <!-- <div class="service-card-content">
-                                    <h3 class="service-card- -->
-                            <!-- </div> -->
-                        </div>
-                    </div>
-                </div>
-            </section>
 
                             <!-- Footer -->
     <footer class="bx--footer">
