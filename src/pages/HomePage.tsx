@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import Hero from "../components/Hero";
 import AboutTeam from "../components/AboutTeam";
 import Services from "../components/Services";
@@ -11,8 +11,8 @@ const HomePage: React.FC = () => {
       <Hero />
       <AboutTeam />
       <Services />
-      <Testimonials />
-      <ContactAndFaq />
+      <Testimonials id="testimonials" />
+      <ContactAndFaq id="contact" />
     </>
   );
 };
