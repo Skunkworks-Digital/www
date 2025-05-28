@@ -3,9 +3,13 @@ import { HelpCircle, Mail } from "lucide-react";
 import Contact from "./Contact";
 import Faq from "./Faq";
 
-const ContactAndFaq: React.FC = () => {
+interface SectionProps {
+  id?: string;
+}
+
+const ContactAndFaq: React.FC<SectionProps> = ({ id }) => {
   return (
-    <section id="contact-faq" className="py-20 bg-[color:var(--bg-primary)]">
+    <section id={id} className="py-20 bg-[color:var(--bg-primary)]">
       <div className="container-custom">
         {/* Section Header */}
         <div className="text-center mb-16">
