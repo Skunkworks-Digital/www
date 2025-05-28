@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { useInView } from "react-intersection-observer";
 import {
@@ -13,6 +14,10 @@ import {
   Lightbulb,
 } from "lucide-react";
 import { motion } from "framer-motion";
+
+interface SectionProps {
+  id?: string;
+}
 
 const TeamMember = ({
   name,
