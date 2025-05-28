@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { CircleDot, Menu, X } from "lucide-react";
 
 const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -22,6 +23,20 @@ const Navbar: React.FC = () => {
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
   const closeMobileMenu = () => setMobileMenuOpen(false);
+
+  const scrollToSection = (id: string) => {
+    closeMobileMenu();
+    if (location.pathname !== "/") {
+      // If not on homepage, navigate to homepage with hash
+      window.location.href = `/#${id}`;
+    } else {
+      // If on homepage, scroll to section
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
 
   return (
     <header>
@@ -46,6 +61,7 @@ const Navbar: React.FC = () => {
               <Link
                 to="/#contact"
                 className="hidden sm:inline-block mr-4 px-4 py-2 bg-white text-blue-600 rounded-md hover:bg-blue-100 transition-colors"
+                onClick={() => scrollToSection("contact")}
               >
                 Get Started
               </Link>
@@ -103,41 +119,36 @@ const Navbar: React.FC = () => {
 
             {/* Navigation Links */}
             <div className="flex flex-col space-y-4 text-base font-medium">
-              <Link
-                to="/#services"
-                onClick={closeMobileMenu}
-                className="px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
+              <button
+                onClick={() => scrollToSection("services")}
+                className="text-left px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
               >
                 Services
-              </Link>
-              <Link
-                to="/#about"
-                onClick={closeMobileMenu}
-                className="px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
+              </button>
+              <button
+                onClick={() => scrollToSection("about")}
+                className="text-left px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
               >
                 About Us
-              </Link>
-              <Link
-                to="/#testimonials"
-                onClick={closeMobileMenu}
-                className="px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
+              </button>
+              <button
+                onClick={() => scrollToSection("testimonials")}
+                className="text-left px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
               >
                 Testimonials
-              </Link>
-              <Link
-                to="/#team"
-                onClick={closeMobileMenu}
-                className="px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
+              </button>
+              <button
+                onClick={() => scrollToSection("team")}
+                className="text-left px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
               >
                 Our Team
-              </Link>
-              <Link
-                to="/#contact"
-                onClick={closeMobileMenu}
-                className="px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
+              </button>
+              <button
+                onClick={() => scrollToSection("contact")}
+                className="text-left px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
               >
                 Contact
-              </Link>
+              </button>
 
               {/* Growth Solutions Dropdown */}
               <div className="pl-4">
@@ -172,13 +183,12 @@ const Navbar: React.FC = () => {
 
             {/* CTA at Bottom */}
             <div className="mt-auto pt-6">
-              <Link
-                to="/#contact"
+              <button
+                onClick={() => scrollToSection("contact")}
                 className="block w-full text-center px-4 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors"
-                onClick={closeMobileMenu}
               >
                 Get Started
-              </Link>
+              </button>
             </div>
           </div>
         </div>
