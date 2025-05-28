@@ -1,6 +1,10 @@
 import React from "react";
 import { Star } from "lucide-react";
 
+interface SectionProps {
+  id?: string;
+}
+
 const testimonials = [
   {
     name: "Raymond Langa",
@@ -28,13 +32,13 @@ const testimonials = [
     role: "Product Designer, UXCraft",
     rating: 5,
     comment:
-      "Hands down the best digital team I’ve worked with. They get it, they care, and they execute fast. No fluff, just results.",
+      "Hands down the best digital team I've worked with. They get it, they care, and they execute fast. No fluff, just results.",
   },
 ];
 
-const TestimonialsSection: React.FC = () => {
+const TestimonialsSection: React.FC<SectionProps> = ({ id }) => {
   return (
-    <section className="w-full bg-gray-50 py-20 px-6">
+    <section id={id} className="w-full bg-gray-50 py-20 px-6">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-blue-600">
           What Our Clients Say
