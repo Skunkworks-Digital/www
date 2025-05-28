@@ -173,3 +173,18 @@
 .sr-only {
   @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
 }
+
+@keyframes backgroundMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-backgroundMove {
+  background-size: 400% 400%;
+  animation: backgroundMove 30s linear infinite;
+}
