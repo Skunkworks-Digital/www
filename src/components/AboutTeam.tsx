@@ -147,7 +147,8 @@ const AboutTeam: React.FC = () => {
         linkedin: "#",
         email: "loyiso@skunkworks.africa",
       },
-      image: "https://placehold.co/400x400?text=Loyiso",
+      image:
+        "https://vagz-ware.github.io/Loyiso-Ndlovu/images/loyisoProfile.JPG",
     },
     {
       name: "Tebogo",
@@ -156,7 +157,8 @@ const AboutTeam: React.FC = () => {
       social: {
         email: "clifton@skunkworks.africa",
       },
-      image: "https://placehold.co/400x400?text=Tebogo",
+      image:
+        "https://media.licdn.com/dms/image/v2/D4D03AQE96dZJ_BAIbg/profile-displayphoto-shrink_400_400/B4DZccML1uGUA0-/0/1748524646735?e=1753920000&v=beta&t=Bzc3Qu4S2iIw2yR2HpsrhUhQVe__Yxi6JMCgWJ50yZY",
     },
   ];
 
