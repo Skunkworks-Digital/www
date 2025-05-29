@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { CircleDot, Menu, X } from "lucide-react";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { button } from "framer-motion/client";
 
 const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -120,29 +122,32 @@ const Navbar: React.FC = () => {
             {/* Navigation Links */}
             <div className="flex flex-col space-y-4 text-base font-medium">
               <button
-                onClick={() => scrollToSection("services")}
-                className="text-left px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
-              >
-                Services
-              </button>
-              <button
                 onClick={() => scrollToSection("about")}
                 className="text-left px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
               >
                 About Us
               </button>
-              <button
-                onClick={() => scrollToSection("testimonials")}
-                className="text-left px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
-              >
-                Testimonials
-              </button>
+
               <button
                 onClick={() => scrollToSection("team")}
                 className="text-left px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
               >
                 Our Team
               </button>
+              <button
+                onClick={() => scrollToSection("services")}
+                className="text-left px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
+              >
+                Services
+              </button>
+
+              <button
+                onClick={() => scrollToSection("testimonials")}
+                className="text-left px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
+              >
+                Testimonials
+              </button>
+
               <button
                 onClick={() => scrollToSection("contact")}
                 className="text-left px-4 py-3 rounded-md hover:bg-blue-100 hover:text-blue-900 transition-colors"
