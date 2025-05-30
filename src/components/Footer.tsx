@@ -119,7 +119,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center">
                 <Clock size={16} className="mr-2" />
-                Mon–Fri: 9:00 AM - 6:00 PM PST
+                Mon–Fri: 9:00 AM - 6:00 PM SAST
                 <br />
                 Sat–Sun: Closed
               </li>
