@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { CircleDot, Menu, X } from "lucide-react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { button } from "framer-motion/client";
-// import { assets } from "../../assets/assets";
 import { assets } from "../assets/assets";
 
 const Navbar: React.FC = () => {
