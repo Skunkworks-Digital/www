@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { CircleDot, Menu, X } from "lucide-react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { button } from "framer-motion/client";
+// import { assets } from "../../assets/assets";
+import { assets } from "../assets/assets";
 
 const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -54,8 +56,13 @@ const Navbar: React.FC = () => {
             className="flex items-center text-white text-xl font-bold"
             onClick={closeMobileMenu}
           >
-            <CircleDot className="w-6 h-6 mr-2" />
-            <span>Skunkworks Digital</span>
+            <Link to={"/"}>
+              <img
+                src={assets.logo}
+                alt="Logo"
+                className="h-12 md:h-14 w-auto cursor-pointer"
+              />
+            </Link>
           </Link>
 
           <div className="flex items-center">
