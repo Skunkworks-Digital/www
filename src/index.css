@@ -188,3 +188,14 @@
   background-size: 400% 400%;
   animation: backgroundMove 30s linear infinite;
 }
+
+.case-study-card {
+  transition-delay: var(--delay, 0ms);
+}
+
+.case-study-card[data-delay] {
+  transition-delay: attr(data-delay ms);
+}
+
+.case-study-card[data-card-accent] .h-3 {
+}
