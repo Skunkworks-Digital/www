@@ -150,7 +150,7 @@ const Hero: React.FC = () => {
         </h1>
 
         <p
-          className={`text-base md:text-lg font-light max-w-2xl mx-auto mb-6 transition-all duration-1000 delay-400 text-white-500 ${
+          className={`text-base md:text-lg font-light max-w-2xl mx-auto mb-6 transition-all duration-1000 delay-400 text-white ${
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
