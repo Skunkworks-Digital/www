@@ -9,6 +9,7 @@ import {
   Phone,
   Clock,
   AtSign,
+  Link,
 } from "lucide-react";
 
 const Footer = () => {
@@ -60,28 +61,28 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a
-                  href="#services"
+                <Link
+                  to="#services"
                   className="hover:text-white transition-colors"
                 >
                   Services
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/process"
+                <Link
+                  to="/process"
                   className="hover:text-white transition-colors"
                 >
                   Proven Process
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/go-to-market"
+                <Link
+                  to="/go-to-market"
                   className="hover:text-white transition-colors"
                 >
                   Go to Market Strategy
-                </a>
+                </Link>
               </li>
               <li>
                 <a
