@@ -9,8 +9,8 @@ import {
   Phone,
   Clock,
   AtSign,
-  Link,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -61,19 +61,19 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <Link
-                  to="#services"
+                <a
+                  href="#services"
                   className="hover:text-white transition-colors"
                 >
                   Services
-                </Link>
+                </a>
               </li>
               <li>
                 <Link
                   to="/process"
                   className="hover:text-white transition-colors"
                 >
-                  Proven Process
+                  Process
                 </Link>
               </li>
               <li>
