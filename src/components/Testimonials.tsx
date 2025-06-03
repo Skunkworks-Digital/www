@@ -7,29 +7,29 @@ interface SectionProps {
 
 const testimonials = [
   {
-    name: "Raymond Langa",
-    role: "CEO, BrightIdeas Inc.",
+    name: "Zamri",
+    role: "CEO, Jamtax accounting ",
     rating: 5,
     comment:
       "Skunkworks Digital transformed our online presence. Their creativity, speed, and attention to detail are unmatched. Highly recommended for serious digital growth!",
   },
   {
-    name: "Tebogo Nkosi",
-    role: "Marketing Lead, Nova Brands",
+    name: "Ngiphiwe Kheswa",
+    role: "Director, Mfumo Political Party",
     rating: 5,
     comment:
       "The team was professional, proactive, and very easy to work with. Our new platform is not only beautiful but performs incredibly well.",
   },
   {
-    name: "Loyiso Dlamini",
-    role: "CTO, ScaleNow",
+    name: "Nicole Tennent ",
+    role: "CEO, Nixon Marketing",
     rating: 4,
     comment:
       "They deliver clean code, on time, and communicate effectively. My startup now looks and feels like a world-class brand.",
   },
   {
-    name: "Selaelo Mokoena",
-    role: "Product Designer, UXCraft",
+    name: "Raydo Matthee",
+    role: "CEO, Skunkworks Academy",
     rating: 5,
     comment:
       "Hands down the best digital team I've worked with. They get it, they care, and they execute fast. No fluff, just results.",
