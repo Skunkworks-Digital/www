@@ -10,9 +10,18 @@ import {
   Clock,
   AtSign,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Footer = () => {
+  const location = useLocation();
+
+  const handleAnchorLink = (hash: string) => {
+    if (location.pathname !== "/") {
+      return `/#${hash}`;
+    }
+    return `#${hash}`;
+  };
+
   return (
     <footer className="bg-gray-900 text-white w-full mt-20">
       <div className="container mx-auto px-6 lg:px-8 py-12">
@@ -56,17 +65,17 @@ const Footer = () => {
             <h3 className="font-semibold text-lg mb-6">Quick Links</h3>
             <ul className="space-y-3 text-gray-400">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link to="/" className="hover:text-white transition-colors">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#services"
+                <Link
+                  to={handleAnchorLink("services")}
                   className="hover:text-white transition-colors"
                 >
                   Services
-                </a>
+                </Link>
               </li>
               <li>
                 <Link
@@ -85,12 +94,12 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a
-                  href="#contact"
+                <Link
+                  to={handleAnchorLink("contact")}
                   className="hover:text-white transition-colors"
                 >
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -127,7 +136,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Newsletter (Hidden on small screens) */}
+          {/* Newsletter */}
           <div className="hidden sm:block flex-col items-start">
             <h3 className="font-semibold text-lg mb-6">Stay in the Loop</h3>
             <p className="text-gray-400 mb-4 text-sm">
