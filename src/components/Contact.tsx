@@ -29,7 +29,10 @@ const Contact: React.FC = () => {
 
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    success: boolean;
+    message: string;
+  } | null>(null);
 
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -80,16 +83,34 @@ const Contact: React.FC = () => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitStatus(null);
 
     if (validateForm()) {
       setIsSubmitting(true);
 
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setSubmitSuccess(true);
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formValues),
+        });
 
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Failed to send message");
+        }
+
+        setSubmitStatus({
+          success: true,
+          message: data.message || "Your message has been sent successfully!",
+        });
+
+        // Reset form on success
         setFormValues({
           name: "",
           email: "",
@@ -99,10 +120,21 @@ const Contact: React.FC = () => {
           message: "",
         });
 
+        // Clear success message after 5 seconds
         setTimeout(() => {
-          setSubmitSuccess(false);
+          setSubmitStatus(null);
         }, 5000);
-      }, 1500);
+      } catch (error) {
+        setSubmitStatus({
+          success: false,
+          message:
+            error instanceof Error
+              ? error.message
+              : "An unexpected error occurred",
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -113,12 +145,18 @@ const Contact: React.FC = () => {
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
       }`}
     >
-      {submitSuccess && (
-        <div className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 p-4 rounded-lg mb-6 animate-fade-in">
-          <p className="font-semibold">Thank you for your message!</p>
-          <p className="mb-0">
-            We've received your inquiry and will get back to you shortly.
+      {submitStatus && (
+        <div
+          className={`p-4 rounded-lg mb-6 animate-fade-in ${
+            submitStatus.success
+              ? "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200"
+              : "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200"
+          }`}
+        >
+          <p className="font-semibold">
+            {submitStatus.success ? "Success!" : "Error"}
           </p>
+          <p className="mb-0">{submitStatus.message}</p>
         </div>
       )}
 
@@ -128,7 +166,7 @@ const Contact: React.FC = () => {
             htmlFor="name"
             className="block mb-2 font-medium text-blue-600"
           >
-            Name
+            Name *
           </label>
           <input
             type="text"
@@ -152,7 +190,7 @@ const Contact: React.FC = () => {
             htmlFor="email"
             className="block mb-2 font-medium text-blue-600"
           >
-            Email
+            Email *
           </label>
           <input
             type="email"
@@ -193,7 +231,7 @@ const Contact: React.FC = () => {
             htmlFor="company"
             className="block mb-2 font-medium text-blue-600"
           >
-            Company
+            Company *
           </label>
           <input
             type="text"
@@ -244,7 +282,7 @@ const Contact: React.FC = () => {
             htmlFor="message"
             className="block mb-2 font-medium text-blue-600"
           >
-            Message
+            Message *
           </label>
           <textarea
             id="message"
